@@ -446,6 +446,10 @@
 
             categoryBoxClone.querySelector(".category-box__image").src = findCategory.splash_image.guid;
 
+            console.log(findCategory);
+
+            categoryBoxClone.querySelector(".category-box__image").alt = findCategory.splash_image.post_title;
+
             categoryBoxClone.querySelector(".category-box__title").textContent = findCategory.name;
 
             categoryBoxClone.querySelector(".category-box__description").textContent = findCategory.description;
