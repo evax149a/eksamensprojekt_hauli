@@ -84,13 +84,32 @@
     <main class="u-margin-bottom">
         <div class="about_content">
 
-            <section class=" js-category-box u-margin-bottom"></section>
+            <section class=" js-category-box red u-margin-bottom"></section>
 
             <div class="vertical-menu-mover">
                 <section class="container category-slider u-margin-bottom">
                     <div class="category-list-container">
-                        <h2 class="category-title">Produktkategorier</h2>
-                        <ul class="category-list">
+
+                        <div class="filter-mobile-button cta-primary">
+                            <div class="filter-svg">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter">
+                                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" /></svg></div>
+
+                            <h2 class="category-title-mobile">Filtrer produkter</h2>
+
+
+
+                        </div>
+
+                        <h2 class="category-title show-filtering-buttons">Produktkategorier</h2>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x show-filtering-buttons">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+
+
+                        <ul class="category-list show-filtering-buttons">
 
                             <li class="category-list__item">
                                 <a href="alle-produkter.html?filter=alle-produkter" class="category-list__link js-category-button" data-category="alle-produkter">
@@ -100,7 +119,6 @@
                                     <h3 class="category-list__category-title">Alle produkter</h3>
                                 </a>
                             </li>
-
                             <li class="category-list__item">
                                 <a href="alle-produkter.html?filter=tasker" class="category-list__link js-category-button" data-category="tasker">
                                     <div class="category-list__icon-container">
@@ -159,7 +177,6 @@
                         <div class="product-list js-product-list"></div>
                     </div>
                 </section>
-
 
             </div>
         </div>
@@ -280,7 +297,8 @@
 
         document.querySelector(`.js-category-button[data-category="${filter}"]`).classList.add("button-clicked");
 
-
+        // Ved klik på filtrer menu knappen --> toggleHeaderBurgerIcon()
+        document.querySelector(".filter-mobile-button").addEventListener("click", toggleFilterMenu);
 
 
 
@@ -457,6 +475,59 @@
             document.querySelector("meta[property='og:image']").setAttribute("content", findCategory.seo_image.guid);
             // FB Website url tag
             document.querySelector("meta[property='og:url']").setAttribute("content", window.location.href);
+        }
+
+
+
+        // Toggle / skift mellem åben og lukket filtreringsmenu
+        function toggleFilterMenu() {
+            console.log("toggle filter menu");
+
+            // Hvis menuen er åben, så bliver "show-filtering-buttons" fjernet
+            // Hvis menuen er lukket, så bliver "show-filtering-buttons" tilføjet
+            document.querySelector(".category-list").classList.toggle("show-filtering-buttons");
+
+
+            document.querySelector(".feather-x").classList.toggle("show-filtering-buttons");
+
+            document.querySelector(".filter-mobile-button").classList.toggle("show-filtering-buttons");
+
+            document.querySelector(".category-title").classList.toggle("show-filtering-buttons");
+
+
+
+
+            // Vi tjekker om menuen er åben, ved at se om
+            // category-list har klassen "show-filtering-buttons".
+            // Hvis den har, så er den åben
+            //            let isFilterOpen = document.querySelector(".category-list").classList.contains("show-filtering-buttons");
+            //
+            // // Hvis menuen er åben i forvejen...
+            // if (isFilterOpen == true) {
+            // // ... så udskift SVG kryds ikonet med SVG hamburger ikonet
+            // document.querySelector(".filter-svg").innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+            //    <line x1="18" y1="6" x2="6" y2="18"></line>
+            //    <line x1="6" y1="6" x2="18" y2="18"></line>
+            //</svg>`;
+            //
+            // } else {
+            // // ... og hvis den ikke er, så udskift SVG hamburger ikonet med SVG kryds ikonet
+            // document.querySelector(".filter-svg").innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter">
+            //    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" /></svg>`;
+            // }
+            document.querySelector(".feather-x").addEventListener("click", closeFilterMenu);
+
+        }
+
+        function closeFilterMenu() {
+            document.querySelector(".category-list").classList.toggle("show-filtering-buttons");
+
+
+            document.querySelector(".feather-x").classList.toggle("show-filtering-buttons");
+
+            document.querySelector(".filter-mobile-button").classList.toggle("show-filtering-buttons");
+
+            document.querySelector(".category-title").classList.toggle("show-filtering-buttons");
         }
 
     </script>
