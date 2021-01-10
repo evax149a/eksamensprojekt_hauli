@@ -2,6 +2,14 @@
     margin-bottom: var(--space-md);
 }
 
+.container-webshop {
+    max-width: 1400px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .category-box_width {
     background-color: var(--red-color);
 }
@@ -17,6 +25,7 @@
     object-position: top;
     max-width: 100%;
     height: auto;
+    max-height: 500px;
 }
 
 .category-box__description {
@@ -48,6 +57,7 @@
 
     .category-box__image {
         max-width: 40%;
+        max-height: none;
     }
 
     .flytmigbund {
@@ -86,6 +96,20 @@
         display: flex;
         max-height: 500px;
         height: 500px;
+    }
+
+
+    .container-webshop {
+        max-width: 1400px;
+        padding-left: 3rem;
+        padding-right: 3rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .category-list__item,
+    .category-title {
+        padding-left: 3rem;
     }
 
 }
@@ -148,7 +172,7 @@
     font-size: 2.4rem;
     font-family: var(--font-family-roboto);
     font-weight: var(--font-weight-regular);
-    padding-left: var(--space-md);
+    padding-left: 2rem;
     display: block;
     margin-right: auto;
     order: 1;
@@ -258,7 +282,7 @@
     display: flex;
     flex-direction: column;
     /*    text-align: center;*/
-    padding-left: var(--space-md);
+    padding-left: 2rem;
     flex-grow: 1;
     scroll-snap-align: start;
     flex-wrap: wrap;
@@ -349,6 +373,7 @@
     position: relative;
     padding-bottom: 115%;
     overflow: hidden;
+    background-color: #e1e1e169;
 }
 
 .product__image {
@@ -451,7 +476,7 @@
 
     .category-slider {
         margin-right: var(--space-md);
-        max-width: 300px;
+        max-width: 280px;
     }
 
     .category-list-container {
@@ -488,7 +513,11 @@
 }
 
 
-@media only screen and (min-width: 1300px) {}
+@media only screen and (min-width: 1100px) {
+    .category-slider {
+        max-width: 310px;
+    }
+}
 
 /* MQ til products list */
 
@@ -583,7 +612,8 @@
 
 @media only screen and (min-width: 950px) {
     .product-list {
-        /*        max-width: 900px;*/
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-column-gap: 70px;
     }
 }
 
