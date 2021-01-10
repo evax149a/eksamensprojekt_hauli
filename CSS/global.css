@@ -88,7 +88,7 @@ html {
     --cta-secondary-border-radius: 2px;
     --cta-secondary-box-shadow: 1.5px 1.5px 3px rgba(16, 31, 72, 0.22);
     /*             Denne padding skal jo nok overskrives nogle steder med noget mindre */
-    --cta-secondary-padding: 2rem 4rem;
+    --cta-secondary-padding: 2rem 3rem;
 
 
     --space-sm: 1.5rem;
