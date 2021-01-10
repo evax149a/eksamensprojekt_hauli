@@ -84,7 +84,7 @@
     <main class="u-margin-bottom">
         <div class="about_content">
 
-            <section class=" js-category-box red u-margin-bottom"></section>
+            <section class=" js-category-box category-box-red u-margin-bottom"></section>
 
             <div class="vertical-menu-mover">
                 <section class="container category-slider u-margin-bottom">
@@ -103,7 +103,7 @@
 
                         <h2 class="category-title show-filtering-buttons">Produktkategorier</h2>
 
-                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x show-filtering-buttons">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-category show-filtering-buttons">
                             <line x1="18" y1="6" x2="6" y2="18"></line>
                             <line x1="6" y1="6" x2="18" y2="18"></line>
                         </svg>
@@ -488,7 +488,7 @@
             document.querySelector(".category-list").classList.toggle("show-filtering-buttons");
 
 
-            document.querySelector(".feather-x").classList.toggle("show-filtering-buttons");
+            document.querySelector(".feather-x-category").classList.toggle("show-filtering-buttons");
 
             document.querySelector(".filter-mobile-button").classList.toggle("show-filtering-buttons");
 
@@ -497,25 +497,24 @@
 
 
 
-            // Vi tjekker om menuen er åben, ved at se om
-            // category-list har klassen "show-filtering-buttons".
-            // Hvis den har, så er den åben
-            //            let isFilterOpen = document.querySelector(".category-list").classList.contains("show-filtering-buttons");
-            //
-            // // Hvis menuen er åben i forvejen...
-            // if (isFilterOpen == true) {
-            // // ... så udskift SVG kryds ikonet med SVG hamburger ikonet
-            // document.querySelector(".filter-svg").innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-            //    <line x1="18" y1="6" x2="6" y2="18"></line>
-            //    <line x1="6" y1="6" x2="18" y2="18"></line>
-            //</svg>`;
-            //
-            // } else {
-            // // ... og hvis den ikke er, så udskift SVG hamburger ikonet med SVG kryds ikonet
-            // document.querySelector(".filter-svg").innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter">
-            //    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" /></svg>`;
+            //            Vi tjekker om menuen er åben, ved at se om
+            //            category - list har klassen "show-filtering-buttons".
+            //            Hvis den har, så er den åben
+            let isFilterOpen = document.querySelector(".category-list").classList.contains("show-filtering-buttons");
+
+            // Hvis menuen er åben i forvejen...
+            if (isFilterOpen == false) {
+                // ... så udskift SVG kryds ikonet med SVG hamburger ikonet
+                document.querySelector(".category-slider").classList.add("filtermenu-fuld-styling");
+
+            }
+
+            //            else {
+            // document.querySelector(".category-slider").classList.remove("filtermenu-fuld-styling");
             // }
-            document.querySelector(".feather-x").addEventListener("click", closeFilterMenu);
+
+
+            document.querySelector(".feather-x-category").addEventListener("click", closeFilterMenu);
 
         }
 
@@ -523,11 +522,23 @@
             document.querySelector(".category-list").classList.toggle("show-filtering-buttons");
 
 
-            document.querySelector(".feather-x").classList.toggle("show-filtering-buttons");
+            document.querySelector(".feather-x-category").classList.toggle("show-filtering-buttons");
 
             document.querySelector(".filter-mobile-button").classList.toggle("show-filtering-buttons");
 
             document.querySelector(".category-title").classList.toggle("show-filtering-buttons");
+
+            //            Vi tjekker om menuen er åben, ved at se om
+            //            category - list har klassen "show-filtering-buttons".
+            //            Hvis den har, så er den åben
+            let isFilterOpen = document.querySelector(".category-list").classList.contains("show-filtering-buttons");
+
+            // Hvis menuen er åben i forvejen...
+            if (isFilterOpen == true) {
+                // ... så udskift SVG kryds ikonet med SVG hamburger ikonet
+                document.querySelector(".category-slider").classList.remove("filtermenu-fuld-styling");
+
+            }
         }
 
     </script>
