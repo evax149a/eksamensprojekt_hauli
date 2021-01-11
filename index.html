@@ -296,10 +296,14 @@
         // URL til landingpage (forsiden)
         var url = "https://evakjar.dk/kea/10_hauli/wordpress/wp-json/wp/v2/pages?slug=landingpage";
 
+
+
         // Splashbillede
         let splash = document.querySelector(".css_splash");
         // Fixed header
         let header = document.querySelector("header");
+
+
 
         // Start funktion
         function start() {
@@ -310,6 +314,8 @@
             // Tilføj eventlistener, der kører hver gang brugeren scroller op eller ned
             document.addEventListener("scroll", showHideHeader);
         }
+
+
 
         // Henter data fra Wordpress til landingpage
         async function hentData() {
@@ -327,22 +333,23 @@
 
         // Viser landingpage dataen på siden
         function showLandingpage(landingpage) {
-            console.log(landingpage);
 
             // Vis landingpage data i "js_dynamic_content" elementet
             document.querySelector(".js_dynamic_content").innerHTML = landingpage[0].content.rendered;
         }
+
+
 
         // Vis eller skjul vores fixed header
         function showHideHeader() {
 
             // Få fat på vores splash sektions højde i px
             let splashHeight = splash.offsetHeight;
-            console.log('splashHeight', splashHeight);
+            // console.log('splashHeight', splashHeight);
 
             // Find ud af hvor vi er henne på siden i px's
             let clientHeight = window.pageYOffset;
-            console.log('clientHeight', clientHeight);
+            // console.log('clientHeight', clientHeight);
 
             // Hvis vi ikke længere kan se splash sektionen på skærmen
             if (clientHeight >= splashHeight) {
@@ -356,9 +363,10 @@
             }
         }
 
+
+
         // Her bruger vi dataen fra Om os siden og indsætter vores SEO
         function showSEO(content) {
-            console.log('showSEO');
 
             // Indsæt data til title tag
             document.querySelector("title").textContent = content[0].seo_titletag;
@@ -372,9 +380,13 @@
             document.querySelector("meta[property='og:description']").setAttribute("content", content[0].seo_metadescription);
             // Facebook Image tag
             document.querySelector("meta[property='og:image']").setAttribute("content", content[0].seo_image.guid);
+
             // Facebook Website url tag
             document.querySelector("meta[property='og:url']").setAttribute("content", window.location.href);
         }
+
     </script>
 
-</body></html>
+</body>
+
+</html>

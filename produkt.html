@@ -283,7 +283,6 @@
 
         // Hent alle produktkategorier
         async function getCategories() {
-            console.log('getCategories');
 
             // Henter alle produktkategorier fra Wordpress
             const response = await fetch(categoriesUrl);
@@ -301,9 +300,8 @@
 
         // Hent hovedprodukt data fra Wordpress
         async function getProduct() {
-            console.log('getProducts');
 
-            // Henter alle kategorier data fra Wordpress
+            // Henter hovedproduktets data fra Wordpress
             const response = await fetch(`${productUrl}?slug=${productNameSlug}`);
 
             // Afventer response - Konverteres til JSON og gemmes i product variablen
@@ -329,7 +327,6 @@
 
         // Hent alle relaterede produkter
         async function getRelatedProducts() {
-            console.log('getRelatedProducts');
 
             // Hovedproduktet kan være tilføjet til flere kategorier på en gang
             // Få fat på alle kategorier hovedproduktet er tilknyttet til, og tilføj dets ID som en array
@@ -345,8 +342,6 @@
             // Vis relaterede produkter i en slider på siden --> showRelatedProducts()
             showRelatedProducts();
 
-            // Vis SEO på siden --> ShowSEO()
-            showSEO();
         }
 
 
@@ -355,7 +350,6 @@
 
         // Vis produktet vi har klikket på, på siden
         function showProduct() {
-            console.log('showProduct');
 
             // Klon produkt template
             const productClone = productTemplate.content.cloneNode(true);
@@ -382,9 +376,8 @@
 
 
 
-        // Hvis alle relaterede produkter på siden
+        // Vis alle relaterede produkter på siden
         function showRelatedProducts() {
-            console.log('showRelatedProducts');
 
             // For hvert relateret produkt...
             relatedProducts.forEach(relatedProduct => {
@@ -396,7 +389,6 @@
 
                     // Så find dens kategori
                     let findCategory = categories.find(category => category.id === relatedProduct.categories[0]);
-                    console.log(findCategory);
 
                     // Tilføj relateret produktdata til de forskellige HTML tags
                     // Billede URL
@@ -427,7 +419,6 @@
 
         // Indsæt SEO indhold på siden fra produktet
         function showSEO() {
-            console.log('showSEO');
 
             // Indsæt title tag
             document.querySelector("title").textContent = `HAULI | ${product.title.rendered}`;
@@ -444,5 +435,8 @@
             // FB Website url tag
             document.querySelector("meta[property='og:url']").setAttribute("content", window.location.href);
         }
+
     </script>
-</body></html>
+</body>
+
+</html>

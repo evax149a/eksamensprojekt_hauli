@@ -171,7 +171,6 @@
 
         // Henter data fra Wordpress til Om Os siden
         async function getData(url) {
-            console.log('getData');
 
             // Henter om os data fra Wordpress
             const response = await fetch(url);
@@ -189,7 +188,6 @@
 
         // Viser Om Os dataen på siden
         function showData(data) {
-            console.log(data);
 
             // Vis Om Os data i ".about_content" elementet
             document.querySelector(".about_content").innerHTML = data[0].content.rendered;
@@ -207,7 +205,6 @@
 
         // Starter videoafspilleren
         function initVideoPlayer() {
-            console.log('initVideoPlayer');
 
             // Startknappen
             const videoPlayerButton = document.querySelector(".js-block-video-button");
@@ -229,15 +226,12 @@
             videoPlayerOverlay.addEventListener("click", videoPlayerPlayPause);
 
 
-
-
-
             // Start eller stop videoen
             function videoPlayerPlayPause() {
 
                 // Hvis videoen er pauset...
                 if (videoPlayerVideo.paused) {
-                    console.log('Play video');
+//                    console.log('Play video');
 
                     // ... Så afspil videoen
                     videoPlayerVideo.play();
@@ -246,7 +240,7 @@
                     // Vis video controls
                     videoPlayerVideo.setAttribute("controls", "controls");
                 } else {
-                    console.log('Pause video');
+//                    console.log('Pause video');
 
                     // Ellers så sæt videoen på pause
                     videoPlayerVideo.pause();
@@ -261,7 +255,6 @@
 
         // Her bruger vi dataen fra Om os siden og indsætter vores SEO
         function showSEO(content) {
-            console.log('showSEO');
 
             // Indsæt data til title tag
             document.querySelector("title").textContent = content[0].seo_titletag;
@@ -278,5 +271,8 @@
             // Facebook Website url tag
             document.querySelector("meta[property='og:url']").setAttribute("content", window.location.href);
         }
+
     </script>
-</body></html>
+</body>
+
+</html>

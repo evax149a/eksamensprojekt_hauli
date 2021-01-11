@@ -351,61 +351,75 @@
 
     <script src="JS/global.js"></script>
     <script>
+        // Når DOMen er loaded, kør start funktionen --> init()
         document.addEventListener("DOMContentLoaded", init);
 
         // Opretter globale variabler
+        // Category data
         let findCategory;
+        // Produkter data
         let products;
+        // Array over alle produktkategorier
         let categories;
 
         // Får fat på vores boks, hvor vores H1 med kategorinavn og kategoribeskrivelse skal indsættes
         const categoryBox = document.querySelector(".js-category-box");
+
         // Får fat på vores categoryBox template
         const categoryBoxTemplate = document.querySelector(".t-category-box");
 
         // Kategori URL
         const categoriesUrl = 'https://evakjar.dk/kea/10_hauli/wordpress/wp-json/wp/v2/categories';
+
+        // Produkt URL
         const productsUrl = 'https://evakjar.dk/kea/10_hauli/wordpress/wp-json/wp/v2/produkt?per_page=100';
+
+        // Produkt template
         const productTemplate = document.querySelector(".t-product");
+
+        // Produktlisten, hvor vi vil have placeret vores produkter
         const productList = document.querySelector(".js-product-list");
 
+        // Tag shop URLens querystring
         let queryString = window.location.search;
+
+        // Få fat på URLens parametre
         let urlParams = new URLSearchParams(queryString);
 
+        // Få fat på parametret med filterets slug,
+        // så vi ved hvilket filter vi skal hente og vise på siden
         let urlFilter = urlParams.get('filter');
 
         let filter;
 
+        // Hvis der intet filter er, så vis alle produkter. Ellers vis filteret
         if (urlFilter === null) {
             filter = "alle-produkter";
         } else {
             filter = urlFilter;
         }
 
-
+        // Tilføj styling til kategoriknap, hvis der klikkes på den
         document.querySelector(`.js-category-button[data-category="${filter}"]`).classList.add("button-clicked");
 
-        // Ved klik på filtrer menu knappen --> toggleHeaderBurgerIcon()
+        // Ved klik på filtrer menu knappen --> toggleFilterMenu()
         document.querySelector(".filter-mobile-button").addEventListener("click", toggleFilterMenu);
 
 
 
+        // Start funktion
         async function init() {
+            // Hent alle produktkategorier fra Wordpress --> getCategories()
             await getCategories();
+
+            // Lyt efter klik på kategoriknapper
             initCategoryButtons();
-
-            document.addEventListener("click", function(event) {
-                console.log(event.target);
-            });
         }
-
-
 
 
 
         // Henter alle produktkategorier
         async function getCategories() {
-            console.log('getCategories');
 
             // Bruger fetch API til at hente JSON data
             const response = await fetch(categoriesUrl);
@@ -419,23 +433,23 @@
 
 
 
-
+        // Henter alle produkter
         async function getProducts() {
-            console.log('getProducts');
 
+            // Bruger fetch API til at hente JSON data
             const response = await fetch(productsUrl);
+            // Afventer data, laves om til JSON som Javascript kan forstå og gemmes i global variabel kaldet products
             products = await response.json();
-            console.log(products);
 
+            // Viser alle produkter --> showProducts()
             showProducts(products);
         }
 
 
 
 
-
+        // Viser alle produkter
         function showProducts(products) {
-            console.log('showProducts');
 
             // Nulstil produktlisten
             productList.innerHTML = '';
@@ -449,31 +463,47 @@
             // Loop igennem alle produkter
             products.forEach(product => {
 
+                // Array over alle produktets produktkategorier
                 let productCategoriesList = [];
 
+                // Her finder vi alle produktets kategorier, gemmer dem som et objekt, og sætter dem ind i productCategoriesList som et array
+                // Vi går altså fra kun at kende kategoriens ID, til at kunne tilgå al informationen om kategorien
                 product.categories.forEach((category, index) => {
 
                     let findProductCategory = categories.find(productCategory => productCategory.id === category);
 
-                    console.log('findProductCategory', findProductCategory);
-
+                    // Tilføj information til array productCategoriesList
                     if (findProductCategory !== null) {
                         productCategoriesList.push(findProductCategory);
                     }
                 });
 
+                // Her sammenligner vi produktets kategorier, indeholdt i productCategoriesList, og sammeligner det med filteret for siden
                 let findMatch = productCategoriesList.find(category => category.slug === filter);
 
+
+                // Hvis vi skal vise alle produkter eller en af produktets produktkategorier passer til det filter vi har klikket på
                 if (filter === 'alle-produkter' || findMatch !== undefined) {
 
+                    // Så skal vi vise produktet
+
+                    // Klon produkt template
                     const productClone = productTemplate.content.cloneNode(true);
 
+                    // Indsæt produktets data i templaten i de rette HTML tags
                     productClone.querySelector(".product").setAttribute('data-product-id', product.id);
+
+                    // Lav et unik link for hvert produkt, med udgangspunkt i dens slug
                     productClone.querySelector(".product__link").href = `produkt.html?name=${product.slug}`;
+
+                    // Billede URL og alt tag
                     productClone.querySelector(".product__image").src = product.billede_thumbnail.guid;
                     productClone.querySelector(".product__image").alt = product.title.rendered;
+
+                    // Produkt titel
                     productClone.querySelector(".product__name").textContent = product.title.rendered;
 
+                    // Tilføj den rette kategori under produktets titel
                     productCategoriesList.forEach(productCategory => {
                         if (productCategory.slug !== 'colorblock-collection' || productCategory.slug !== 'toj') {
                             productClone.querySelector(".product__category-link").textContent = productCategory.name;
@@ -481,8 +511,10 @@
                         }
                     });
 
+                    // Produkt pris
                     productClone.querySelector(".product__price").textContent = product.pris;
 
+                    // Vis produktet på siden i vores "productList"
                     productList.appendChild(productClone);
 
                 }
@@ -491,16 +523,15 @@
             // Vis SEO --> showSEO()
             showSEO();
 
-            // Vis kategorinavn som H1 og kategoribeskrivelse som p tag i vores categorybox --> createCategoryBox(filter)
+            // Vis indhold i vores categorybox --> createCategoryBox(filter)
             createCategoryBox(filter);
         }
 
 
 
 
-
+        // Tilføj en eventlistener til kategoriknapperne. Filtrer alt efter hvad der er klikket på, i næste funktion
         function initCategoryButtons() {
-            console.log('initCategoryButtons');
 
             const categoryButtons = document.querySelectorAll(".js-category-button");
 
@@ -513,34 +544,33 @@
 
 
 
-
+        // Filtrer produkter
         function filterProducts(event) {
-            console.log(this);
 
-            //            event.preventDefault();
-
+            // Find kategorien ud fra datasettet på den knap der er trykket på
             filter = this.dataset.category;
-            console.log('filter', filter);
 
+            // Fjern class der fremhæver kategori
             document.querySelectorAll(".js-category-button").forEach(category => category.classList.remove("button-clicked"));
             this.classList.add("button-clicked");
 
+            // Gå til vis produkter, showProducts
             showProducts(products);
         }
 
 
 
 
-
+        // Tilføj information til kategoribeskrivelsen
         function createCategoryBox(category) {
-            console.log('createCategoryBox');
-            console.log('category', category);
 
             // Nulstil kategorinavn og kategoribeskrivelse
             categoryBox.innerHTML = "";
 
+            // Klon kategori-templaten
             const categoryBoxClone = categoryBoxTemplate.content.cloneNode(true);
 
+            // Tilføj den information der skal være i kategoribeskrivelsen til de rette HTML elementer
             categoryBoxClone.querySelector(".category-box__image").src = findCategory.splash_image.guid;
 
             categoryBoxClone.querySelector(".category-box__image").alt = findCategory.splash_image.post_title;
@@ -549,17 +579,16 @@
 
             categoryBoxClone.querySelector(".category-box__description").textContent = findCategory.description;
 
+            // Indsæt klonen i DOM'en det rette sted
             categoryBox.appendChild(categoryBoxClone);
         }
 
 
 
 
-
+        // Vis SEO
         function showSEO() {
-            console.log('showSEO');
 
-            console.log('SEO', findCategory);
             // Indsæt title tag
             document.querySelector("title").textContent = findCategory.seo_titletag;
             // Indsæt meta description
@@ -578,14 +607,11 @@
 
 
 
-        // Toggle / skift mellem åben og lukket filtreringsmenu
+        // Åben filtreringsmenu ved klik
         function toggleFilterMenu() {
-            console.log("toggle filter menu");
 
-            // Hvis menuen er åben, så bliver "show-filtering-buttons" fjernet
-            // Hvis menuen er lukket, så bliver "show-filtering-buttons" tilføjet
+            // Hvis menuen er åben, så bliver "show-filtering-buttons" enten fjernet eller tilføjet
             document.querySelector(".category-list").classList.toggle("show-filtering-buttons");
-
 
             document.querySelector(".feather-x-category").classList.toggle("show-filtering-buttons");
 
@@ -594,36 +620,29 @@
             document.querySelector(".category-title").classList.toggle("show-filtering-buttons");
 
 
-
-
-            //            Vi tjekker om menuen er åben, ved at se om
-            //            category - list har klassen "show-filtering-buttons".
-            //            Hvis den har, så er den åben
+            // Vi tjekker om menuen er åben, ved at se om
+            // category-list har klassen "show-filtering-buttons".
+            // Hvis den har, så er den åben
             let isFilterOpen = document.querySelector(".category-list").classList.contains("show-filtering-buttons");
 
             // Hvis menuen er åben i forvejen...
             if (isFilterOpen == false) {
-                // ... så udskift SVG kryds ikonet med SVG hamburger ikonet
+                // ... så tilføj filtermenu-fuld-styling så menuen fylder det hele
                 document.querySelector(".category-slider").classList.add("filtermenu-fuld-styling");
-
             }
 
-            //            else {
-            // document.querySelector(".category-slider").classList.remove("filtermenu-fuld-styling");
-            // }
-
-
+            // Lyt efter klik på krydset eller kategorier
             document.querySelector(".feather-x-category").addEventListener("click", closeFilterMenu);
             document.querySelectorAll(".category-list__icon").addEventListener("click", closeFilterMenu);
-
-            console.log('klikket', this);
         }
 
+
+        // Luk filtreringsmenuen ved klik
         function closeFilterMenu() {
-            console.log(closeFilterMenu);
 
+            // Hvis der bliver trykket på krydset eller valgt en ny kategori tilføjes show-filtering-buttons,
+            // så de ting der skal forsvinde eller dukke frem når menuen lukker gør det
             document.querySelector(".category-list").classList.toggle("show-filtering-buttons");
-
 
             document.querySelector(".feather-x-category").classList.toggle("show-filtering-buttons");
 
@@ -631,17 +650,19 @@
 
             document.querySelector(".category-title").classList.toggle("show-filtering-buttons");
 
-            //            Vi tjekker om menuen er åben, ved at se om
-            //            category - list har klassen "show-filtering-buttons".
-            //            Hvis den har, så er den åben
+            // Vi tjekker om menuen er åben, ved at se om
+            // category-list har klassen "show-filtering-buttons".
+            // Hvis den har, så er den åben
             let isFilterOpen = document.querySelector(".category-list").classList.contains("show-filtering-buttons");
 
-            // Hvis menuen er åben i forvejen...
+            // Hvis menuen er åben...
             if (isFilterOpen == true) {
-                // ... så udskift SVG kryds ikonet med SVG hamburger ikonet
+                // ... så fjern filtermenu-fuld-styling så menuen ikke længere fylder det hele
                 document.querySelector(".category-slider").classList.remove("filtermenu-fuld-styling");
-
             }
         }
+
     </script>
-</body></html>
+</body>
+
+</html>

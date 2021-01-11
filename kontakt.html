@@ -251,7 +251,6 @@
 
         // Henter data fra Wordpress til Kontakt os siden
         async function getData(url) {
-            console.log('getData');
 
             // Henter kontakt os data fra Wordpress
             const response = await fetch(url);
@@ -268,7 +267,6 @@
 
         // Viser Kontakt os dataen på siden
         function showData(data) {
-            console.log('showData');
 
             // Vis Om Os data i ".contact_content" elementet
             document.querySelector(".contact_content").innerHTML = data[0].content.rendered;
@@ -283,7 +281,6 @@
 
         // Her bruger vi dataen fra Om os siden og indsætter vores SEO
         function showSEO(content) {
-            console.log('showSEO');
 
             // Indsæt data til title tag
             document.querySelector("title").textContent = content[0].seo_titletag;
@@ -300,5 +297,8 @@
             // Facebook Website url tag
             document.querySelector("meta[property='og:url']").setAttribute("content", window.location.href);
         }
+
     </script>
-</body></html>
+</body>
+
+</html>
