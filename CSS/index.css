@@ -451,6 +451,12 @@ html {
 
     .forste {
         order: 1;
+        max-width: 225px;
+
+    }
+
+    .forste img {
+        height: initial;
     }
 
     .anden {

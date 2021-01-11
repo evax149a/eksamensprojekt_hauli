@@ -48,7 +48,7 @@
 
 @media only screen and (min-width: 420px) {
     .box-size {
-        width: 75%;
+        /*        width: 75%;*/
         padding: 40px;
     }
 }
@@ -340,6 +340,7 @@
     font-size: 1.5rem;
     vertical-align: middle;
     align-self: center;
+    margin-left: 5px;
 }
 
 .button-clicked h3 {
@@ -361,8 +362,13 @@
 .product-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    grid-column-gap: 2.8rem;
+    grid-column-gap: 2rem;
     grid-row-gap: 6.2rem;
+}
+
+.product {
+    display: flex;
+    flex-direction: column;
 }
 
 .product:hover .product__image {
@@ -371,7 +377,7 @@
 
 .product__image-container {
     position: relative;
-    padding-bottom: 115%;
+    padding-bottom: 135%;
     overflow: hidden;
     background-color: #e1e1e169;
 }
@@ -399,7 +405,7 @@
 }
 
 .product__name {
-    font-size: 2.3rem;
+    font-size: 1.6rem;
     font-family: var(--font-family-roboto);
     font-weight: var(--font-weight-light);
     line-height: inherit;
@@ -408,14 +414,15 @@
 
 .product__category-link {
     color: var(--cta-primary-background-color);
-    margin-top: -5px;
+    margin-top: 2px;
     font-size: 1.5rem;
 }
 
 .product__price-text {
     font-weight: var(--font-weight-regular);
     padding-top: 8px;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
+    margin-top: auto;
 }
 
 .wp-block-group:nth-of-type(1),
@@ -569,6 +576,27 @@
         /*        max-width: 550px;*/
     }
 
+
+    .product__name {
+        font-size: 2rem;
+        font-family: var(--font-family-roboto);
+        font-weight: var(--font-weight-light);
+        line-height: inherit;
+        margin-top: 5px;
+    }
+
+    .product__category-link {
+        color: var(--cta-primary-background-color);
+        margin-top: 2px;
+        font-size: 1.5rem;
+    }
+
+    .product__price-text {
+        font-weight: var(--font-weight-regular);
+        padding-top: 8px;
+        font-size: 1.8rem;
+        margin-top: auto;
+    }
 }
 
 @media only screen and (min-width: 750px) {
@@ -581,20 +609,6 @@
 
     .products {
         padding-right: 3rem;
-    }
-
-    .product__name {
-        font-size: 2.8rem;
-    }
-
-    .product__category-link {
-        margin-top: -5px;
-        font-size: 1.8rem;
-    }
-
-    .product__price-text {
-        padding-top: 20px;
-        font-size: 2.3rem;
     }
 }
 
@@ -642,7 +656,9 @@
 
 
 
-
+footer {
+    margin-top: var(--space-md);
+}
 
 
 

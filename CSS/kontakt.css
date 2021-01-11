@@ -44,6 +44,7 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: -16rem;
+
     position: relative;
 }
 
@@ -56,4 +57,12 @@
     max-width: none;
     width: 100%;
     object-fit: cover;
+}
+
+.u-margin-contact {
+    margin-top: 18rem;
+}
+
+footer {
+    margin-top: var(--space-md);
 }
